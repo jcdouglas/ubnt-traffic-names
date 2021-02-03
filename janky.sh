@@ -14,6 +14,8 @@ ubntssh="username@edgerouter"
 vbashhead1='#!/bin/vbash'
 vbashhead2='source /opt/vyatta/etc/functions/script-template'
 vbashhead3='configure'
+# cleanup for old hosts that may not exist anymore
+vbashcleanhosts='delete system static-host-mapping host-name'
 #
 # vbash footer info
 vbashfoot1='commit'
@@ -26,7 +28,9 @@ vbashfoot3='exit'
 ssh -o LogLevel=QUIET -n "$ubntssh" "echo -e '#!/bin/vbash' > ./newjank.sh"
 ssh -o LogLevel=QUIET -n "$ubntssh" "echo -e "$vbashhead2" >> ./newjank.sh"
 ssh -o LogLevel=QUIET -n "$ubntssh" "echo -e "$vbashhead3" >> ./newjank.sh"
+ssh -o LogLevel=QUIET -n "$ubntssh" "echo -e "$vbashcleanhosts" >> ./newjank.sh"
 #
+
 # An explanation of what is being jammed into the while loops
 #
 #
